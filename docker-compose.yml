@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=rgs
+      - POSTGRES_PASSWORD=sjo
+      - POSTGRES_DB=appdb
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  developer:
+    build:
+      context: .
+      dockerfile: dfDeveolper
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - document_root:/var/www/html
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "5901:5901"
+      - "22:22"
+    stdin_open: true
+    tty: true
+
+  flask-app:
+    build:
+      context: .
+      dockerfile: dfFlask
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://postgres:sjo@db/appdb
+    volumes:
+      - document_root:/app
+
+volumes:
+  dbdata:
+  document_root:
