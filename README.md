@@ -15,11 +15,11 @@ docker-compose up --build
 
 ### Important Notes
 
-- vnc port : 5901
-- postgre port : 5432
-- flask website port: 5000
+- vnc port : `5901`
+- postgre port : `5432`
+- flask website port: `5000`
 
-- flask files can be found in /var/www/html
-- database files can be found in /var/lib/postgresql/data
-- data base name is appdb
+- flask files can be found in `/var/www/html`
+- database files can be found in `/var/lib/postgresql/data`
+- data base name is `appdb`
 ---
